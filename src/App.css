@@ -1,0 +1,65 @@
+
+header {
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  background: linear-gradient(150deg, #c4ff25, #0015ff, #ff8500);
+  background-size: 600% 600%;
+  animation: Colorscroll 6s ease infinite;
+  color: burlywood;
+  
+}
+
+@keyframes Colorscroll {
+    0%{background-position:2% 0%}
+    50%{background-position:99% 100%}
+    100%{background-position:2% 0%}
+}
+
+main {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+}
+
+.search-aside {
+  background-color: chartreuse;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.poke-list {
+  background-color: cornflowerblue;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.pokeitem {
+  background: rgb(143,161,255);
+  background: radial-gradient(circle, rgb(199, 209, 255) 25%, rgb(255, 142, 150) 80%, rgba(252,236,70,1) 90%, rgb(49, 47, 28) 100%);
+  border-radius: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+  max-height: 300px;
+  margin: 20px;
+  padding: 5px;
+}
+
+ .pokeitem > img {
+  max-width: 100px;
+  height: auto;
+}
+
+.pokeitem > p {
+  margin: 1px;
+  font-size: smaller;
+
+  
+}
