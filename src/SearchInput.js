@@ -5,7 +5,8 @@ export default class SearchInput extends Component {
         return (
             <div>
                 <input onChange={this.props.handleChangeName} />
-                <button >Click</button>
+                <button onClick={this.props.handleClick}>Search here</button>
+
             </div>
         )
     }
