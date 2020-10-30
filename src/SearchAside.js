@@ -12,7 +12,7 @@ export default class SearchAside extends Component {
                 <SortDD1 handleChangeSortAsc={this.props.handleChangeSortAsc} />
                 <SortDD2 handleChangeSortParam={this.props.handleChangeSortParam} />
                 <SearchInput handleChangeName={this.props.handleChangeName} handleClick={this.props.handleClick} />
-                <Radios handleRadioChange={this.handleRadioChange} />
+                <Radios handleRadioChange={this.props.handleRadioChange} />
             </div>
         )
     }

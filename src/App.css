@@ -1,4 +1,25 @@
 
+@font-face {
+  font-family: 'Good Unicorn';
+  src: url('./GoodUnicornRegular-Rxev.ttf') format('truetype');
+}
+
+h1 {
+  font-family: 'Good Unicorn';
+  letter-spacing: 1px;
+  font-size: 7rem;
+  color: rgb(245, 151, 187);
+  text-shadow: 2px 2px rgb(106, 42, 165);
+}
+
+h2 {
+  margin-bottom: 5px;
+  letter-spacing: 1.5px;
+  font-size: 1.2rem;
+  color: rgb(143, 64, 139);
+  text-shadow: 1px 1px rgb(43, 19, 68);
+}
+
 header {
   min-height: 100px;
   display: flex;
@@ -37,6 +58,21 @@ main {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+}
+.gif-holder {
+  width: 100%;
+  min-height: 400px;
+  background-color: cornflowerblue;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+iframe {
+  margin-top: 15px;
+  opacity: 0.9;
+  border-radius: 30px;
+  box-shadow:inset 0px 0px 40px 40px rgba(255,255,255,1);
 }
 
 .pokeitem {

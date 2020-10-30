@@ -4,14 +4,20 @@ import fetch from 'superagent';
 import SearchAside from './SearchAside.js';
 import PokeList from './PokeList.js';
 
+const sleep = (time) => new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve()
+    }, time)
+});
+
 export default class ListPage extends Component {
     //WHERE STATE GOES
     state = {
         pokeData: [],
         SortAsc: 'asc',
-        name: '',
+        search: '',
         SortParam: '',
-        Type: '',
+        radio: 'pokemon',
         //desceneing
         // sort by speed
         // sort by attack
@@ -20,11 +26,30 @@ export default class ListPage extends Component {
         // which 'type_1'
     }
 
-    componentDidMount = async () => {
-        const response = await fetch.get('https://alchemy-pokedex.herokuapp.com/api/pokedex');
 
+    fetchPokemon = async () => {
+        const SortAsc = this.state.SortAsc;
+        const SortParam = this.state.SortParam;
+        const search = this.state.search;
+        const type = this.state.radio;
+        //const Type = this.state.type;
+        const API = 'https://alchemy-pokedex.herokuapp.com/api/pokedex?';
+        const apiRequest = API + type + '=' + search + '&sort=' + SortParam + '&direction=' + SortAsc;
+        console.log(apiRequest);
+        const response = await fetch.get(apiRequest);
+        this.setState({ pokeData: '' });
+        await sleep(1500);
+        console.log(response.body.results);
         this.setState({ pokeData: response.body.results });
-        console.log(response.body);
+    }
+
+
+    componentDidMount = async () => {
+        // const response = await fetch.get('https://alchemy-pokedex.herokuapp.com/api/pokedex');
+
+        // this.setState({ pokeData: response.body.results });
+        // console.log(response.body);
+        await this.fetchPokemon()
     }
 
     handleChangeSortParam = async (e) => {
@@ -43,29 +68,19 @@ export default class ListPage extends Component {
 
     handleChangeName = async (e) => {
         e.preventDefault();
-        this.setState({ name: e.target.value });
+        this.setState({ search: e.target.value });
         console.log(e.target.value)
     };
 
-    // handleRadioChange = async (e) {
-    //     this.setState({
-    //         Type: e.target.value
-    //     });
-    // };
+    handleRadioChange = async (e) => {
+        this.setState({
+            radio: e.target.value
+        });
+        console.log(e.target.value);
+    };
 
     handleClick = async (e) => {
-        const SortAsc = this.state.SortAsc;
-        const SortParam = this.state.SortParam;
-        const name = this.state.name;
-        //const Type = this.state.type;
-        const API = 'https://alchemy-pokedex.herokuapp.com/api/pokedex?pokemon=';
-        const apiRequest = API + name + '&sort=' + SortParam + '&direction=' + SortAsc;
-        console.log(apiRequest);
-        const response = await fetch.get(apiRequest);
-
-        console.log(response.body.results);
-
-        this.setState({ pokeData: response.body.results });
+        await this.fetchPokemon();
     }
 
 
@@ -79,22 +94,23 @@ export default class ListPage extends Component {
                         handleChangeSortAsc={this.handleChangeSortAsc} handleChangeName={this.handleChangeName}
                         handleClick={this.handleClick} handleChangeSortParam={this.handleChangeSortParam}
                         handleRadioChange={this.handleRadioChange} />
-                    {/* {
-                        this.state.pokeData.length === 0
-                            ? <iframe
-                                src="https://giphy.com/embed/xTk9ZvMnbIiIew7IpW"
-                                title={Math.random()}
-                                width="480"
-                                height="480"
-                                frameBorder="0"
-                                className="giphy-embed"
-                                allowFullScreen /> :
- */}
+                    {
+                        !this.state.pokeData.length
 
-                    <PokeList pokeData={this.state.pokeData}
-                        SortAsc={this.state.SortAsc}
-                    />
-                    {/* } */}
+                            ? <div className="gif-holder">
+                                <iframe src="https://giphy.com/embed/JUh0yTz4h931K"
+                                    width="480"
+                                    height="322"
+                                    title="search"
+                                    frameBorder="0"
+                                    class="giphy-embed"
+                                    allowFullScreen />
+                            </div> :
+
+                            <PokeList pokeData={this.state.pokeData}
+                                SortAsc={this.state.SortAsc}
+                            />
+                    }
                 </main>
 
 
