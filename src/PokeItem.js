@@ -4,7 +4,7 @@ export default class PokeItem extends Component {
     render() {
         return (
             <div className="pokeitem">
-                <h3>{this.props.pokemon}</h3>
+                <h2>{this.props.pokemon}</h2>
                 <img src={this.props.url_image} alt={this.props.pokemon} />
                 <p> Type: {this.props.type_1}</p>
                 <p>Attack: {this.props.attack}</p>
