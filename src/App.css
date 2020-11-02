@@ -97,5 +97,12 @@ iframe {
   margin: 1px;
   font-size: smaller;
 
-  
 }
+
+.poke-list > a:webkit-any-link {
+    text-decoration: none;
+  }
+  
+.poke-list > a:visited {
+    text-decoration: none;
+  }

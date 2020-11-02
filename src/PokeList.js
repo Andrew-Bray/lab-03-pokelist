@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import PokeItem from './PokeItem.js'
-
+import PokeItem from './PokeItem.js';
+import { Link } from 'react-router-dom';
 
 //this is where the component and fetch stuff should be... I think
 
@@ -25,14 +25,16 @@ export default class PokeList extends Component {
         return (
             <div className="poke-list">
                 {this.props.pokeData.map(poke =>
-                    <PokeItem
-                        pokemon={poke.pokemon}
-                        url_image={poke.url_image}
-                        speed={poke.speed}
-                        attack={poke.attack}
-                        defense={poke.defense}
-                        type_1={poke.type_1}
-                    />)
+                    <Link to={`/pokemon/${poke.pokemon}`}>
+                        <PokeItem
+                            pokemon={poke.pokemon}
+                            url_image={poke.url_image}
+                            speed={poke.speed}
+                            attack={poke.attack}
+                            defense={poke.defense}
+                            type_1={poke.type_1} />
+                    </Link>
+                )
                 }
             </div>
         )
