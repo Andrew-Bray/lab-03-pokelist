@@ -4,11 +4,6 @@ import fetch from 'superagent';
 import SearchAside from './SearchAside.js';
 import PokeList from './PokeList.js';
 
-const sleep = (time) => new Promise((resolve, reject) => {
-    setTimeout(() => {
-        resolve()
-    }, time)
-});
 
 export default class ListPage extends Component {
     //WHERE STATE GOES
@@ -18,7 +13,9 @@ export default class ListPage extends Component {
         search: '',
         SortParam: '',
         radio: 'pokemon',
-        pageNum: '1',
+        pageNum: 1,
+        count: 0,
+        perPage: '20',
         //desceneing
         // sort by speed
         // sort by attack
@@ -33,15 +30,21 @@ export default class ListPage extends Component {
         const SortParam = this.state.SortParam;
         const search = this.state.search;
         const type = this.state.radio;
+        const page = this.state.pageNum;
+        const perPage = this.state.perPage;
         //const Type = this.state.type;
-        const API = 'https://alchemy-pokedex.herokuapp.com/api/pokedex?';
-        const apiRequest = API + type + '=' + search + '&sort=' + SortParam + '&direction=' + SortAsc;
+        const API = `https://alchemy-pokedex.herokuapp.com/api/pokedex?`;
+        const apiRequest = API + '&' + type + '=' + search + '&sort=' + SortParam + '&direction=' + SortAsc + '&page=' + page + '&perPage=' + perPage;
         console.log(apiRequest);
         const response = await fetch.get(apiRequest);
         this.setState({ pokeData: '' });
-        await sleep(200);
+        //await sleep(200);
         console.log(response.body.results);
-        this.setState({ pokeData: response.body.results });
+        this.setState({
+            pokeData: response.body.results,
+            count: response.body.count,
+            perPage: response.body.perPage
+        });
     }
 
 
@@ -81,8 +84,25 @@ export default class ListPage extends Component {
     };
 
     handleClick = async (e) => {
+        this.setState({
+            pageNum: 1
+        })
         await this.fetchPokemon();
-    }
+    };
+
+    pagePrev = async () => {
+        await this.setState({
+            pageNum: this.state.pageNum - 1
+        })
+        await this.fetchPokemon();
+    };
+
+    pageNext = async () => {
+        await this.setState({
+            pageNum: this.state.pageNum + 1
+        })
+        await this.fetchPokemon();
+    };
 
 
 
@@ -94,7 +114,12 @@ export default class ListPage extends Component {
                     <SearchAside pokeData={this.state.pokeData}
                         handleChangeSortAsc={this.handleChangeSortAsc} handleChangeName={this.handleChangeName}
                         handleClick={this.handleClick} handleChangeSortParam={this.handleChangeSortParam}
-                        handleRadioChange={this.handleRadioChange} />
+                        handleRadioChange={this.handleRadioChange} pagePrev={this.pagePrev}
+                        pageNext={this.pageNext}
+                        pageNum={this.state.pageNum}
+                        count={this.state.count}
+                        perPage={this.state.perPage}
+                    />
                     {
                         !this.state.pokeData.length
 

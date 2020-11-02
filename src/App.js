@@ -8,6 +8,7 @@ import ListPage from './ListPage.js';
 import PokeHome from './PokeHome.js';
 import Header from './Header.js';
 import DetailPage from './DetailPage.js';
+import PokePaginate from './PokePaginate.js';
 //import MySpecialFooter from './MySpecialFooter.js';
 
 export default class App extends Component {
@@ -26,6 +27,11 @@ export default class App extends Component {
               path="/list"
               exact
               render={(routerProps) => <ListPage {...routerProps} />}
+            />
+            <Route
+              path="/paginate"
+              exact
+              render={(routerProps) => <PokePaginate {...routerProps} />}
             />
             <Route
               path="/pokemon/:pokepage"

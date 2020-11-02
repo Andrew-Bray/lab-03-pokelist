@@ -13,7 +13,8 @@ export default class DetailPage extends Component {
     componentDidMount = async () => {
         const response = await fetch.get(`https://alchemy-pokedex.herokuapp.com/api/pokedex/?pokemon=${this.props.match.params.pokepage}`);
         console.log(this.props.match.params.pokepage);
-        this.setState({ pokeData: response.body.results });
+        await this.setState({ pokeData: response.body.results });
+        console.log(response.body.results);
     }
     render() {
 
@@ -23,7 +24,8 @@ export default class DetailPage extends Component {
                 {
                     this.state.pokeData.length === 0
                         ? 'loading!!!'
-                        : this.state.pokeData.map(poke => <div className="pokeitem">
+                        //proud of this solution with slice
+                        : this.state.pokeData.slice(0, 1).map(poke => <div className="pokeitem">
                             <h2>{poke.pokemon}</h2>
                             <img src={poke.url_image} alt={poke.pokemon} />
                             <p> Type: {poke.type_1}</p>
@@ -31,7 +33,7 @@ export default class DetailPage extends Component {
                             <p>Defense: {poke.defense}</p>
                             <p>Speed: {poke.speed}</p>
                             <p>Ability: {poke.ability_1}</p>
-                            <p>Hdden Ability: {poke.ability_hidden}</p>
+                            <p>Hidden Ability: {poke.ability_hidden}</p>
                         </div>)
 
                 }
