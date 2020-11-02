@@ -23,7 +23,15 @@ export default class DetailPage extends Component {
                 <h3>{this.props.match.params.pokepage}'s page!</h3>
                 {
                     this.state.pokeData.length === 0
-                        ? 'loading!!!'
+                        ? <div className="gif-holder">
+                            <iframe src="https://giphy.com/embed/JUh0yTz4h931K"
+                                width="480"
+                                height="322"
+                                title="search"
+                                frameBorder="0"
+                                class="giphy-embed"
+                                allowFullScreen />
+                        </div>
                         //proud of this solution with slice
                         : this.state.pokeData.slice(0, 1).map(poke => <div className="pokeitem">
                             <h2>{poke.pokemon}</h2>
